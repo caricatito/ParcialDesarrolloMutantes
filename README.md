@@ -33,7 +33,7 @@ Logearse, crear una nueva coleccion y dentro de la misma creamos 2 servicios y s
 Dentro del POST seleccionar "body" y dentro  del body el "raw" e ingresar algo con este formato y se ejecutara el 
 servicio para saber si es mutante
 
-```JSON
+```YAML
 "dna":[
 "ATGCGA",
 "CAGTGC",
@@ -46,7 +46,7 @@ servicio para saber si es mutante
 Mientras que el GET devolvera algo como esto lo cual uno lleva la cuenta de humanos otro la de mutantes y la otra es 
 el ratio de mutantes por persona
 
-```JSON
+```YAML
 "ratio": 0.0,
 "contador_mutante": 0,
 "contador_humano": 0
@@ -68,7 +68,7 @@ Devolvera en cada caso el mismo resultado, todo depende de las cadenas a ingresa
 
 
 ### EJEMPLOS DE CADENAS PARA TESTEAR
-```JSON
+```YAML
 "dna":[
 "ATGCGA",
 "CAGTGC",
@@ -78,7 +78,7 @@ Devolvera en cada caso el mismo resultado, todo depende de las cadenas a ingresa
 "TCACTG"
 ]
 ```
-```JSON
+```YAML
 "dna": [
 "ATGCGA",
 "CAGTGC",
@@ -89,7 +89,7 @@ Devolvera en cada caso el mismo resultado, todo depende de las cadenas a ingresa
 ]
 ```
 
-```JSON
+```YAML
 "dna": [
 "ATGCGA",
 "CAGTGC",
