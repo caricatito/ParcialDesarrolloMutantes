@@ -1,75 +1,102 @@
+## Ejercicio
+El ejercicio consiste en pasarle una matriz (Que en realidad es un array) y dependiendo de como estes conformadas 
+las estructuras de ADN devolvera si es o no es mutante el ADN de la persona analizada. Esto ya que magneto quiere 
+reclutar mutantes para su ejercito segun el enunciado brindado por la catedra.
 ## Funcionamiento
-
-Se recibirá como parámetro un array de Strings que representan cada fila de una tabla de (6x6) con la secuencia del ADN. Las letras de los Strings solo pueden ser: (A,T,C,G), las cuales representa cada base nitrogenada del ADN.
-
-Se sabrá si un humano es mutante, si se encuentra **MAS DE UNA SECUENCIA** de cuatro letras iguales, de forma oblicua, horizontal o vertical.
-
-Las filas de la matriz a verificar se ingresan por teclado.
-
-Ejemplo de input: '**ATCGTA**' (esto equivale a una fila de la matriz)
-
-Una vez cargada correctamente la misma, se aplica una función que verifica si hay presencia en la matriz de mutantes o no y se devuelve el resultado al usuario en base a eso.
+Para este ejercicio hay que tener en cuenta muchos puntos:
+* Al analizar las matrices solo podran ser de nxn es decir, no pueden ser matrices de 4x2 o 4x3 tienen que ser 
+  necesariamente de 4x4, 2x2,etc.
+* Los parametros a analizar dentro de las matrices seran letras las cuales representan las 4 bases nitrogenadas del 
+  ADN, por lo tanto si dentro de este array incorporamos alguna otra letra u expresion, no sera analizada directamente.
+* Se sabra si es mutante ya que si en las cadenas de ADN, hay mas de una secuencia de cuatro letras iguales de 
+  manera vertical, horizontal u oblicua.
 
 ## Ejecución
+Puede Ejecutarse de 2 maneras distintas:
 
-El proyecto ha sido deployado en Render aprete el siguiente Link:
+1. ### **_De manera remota sin descargar los archivos:_**
 
-https://parcial-magneto.onrender.com
+Al estar deployado en render pero no tener un front para mostrar algo, tirara error si se clickea el link que sera. 
+Ademas al ser la version gratuita render dejara de estar vigente por lo tanto, si desea ver el sistema con render 
+comuniquese directamente con el dueño de este repositorio.
 
-### Endpoints
+https://parcialdesarrollomutantes.onrender.com
 
-- **POST** /mutant - Recibe un JSON con la matriz de ADN a verificar. Ejemplo:
+Luego hay que abrir la aplicacion de POSTMAN
 
-```json
-{
-    "dna": [
-        "ATGCGA",
-        "CAGTGC",
-        "TTATGT",
-        "AGAAGG",
-        "CCCCTA",
-        "TCACTG"
-    ]
-}
+https://web.postman.co
+
+Logearse, crear una nueva coleccion y dentro de la misma creamos 2 servicios y seleccionamos lo siguiente
+* GET: https://parcialdesarrollomutantes.onrender.com/stats
+* POST: https://parcialdesarrollomutantes.onrender.com/mutant
+
+Dentro del POST seleccionar "body" y dentro  del body el "raw" e ingresar algo con este formato y se ejecutara el 
+servicio para saber si es mutante
+
+```JSON
+"dna":[
+"ATGCGA",
+"CAGTGC",
+"TTATGT",
+"AGAAGG",
+"CCCCTA",
+"TCACTG"
+]
 ```
-- **GET** /stats - Devuelve un JSON con la cantidad de mutantes y humanos verificados. Ejemplo:
+Mientras que el GET devolvera algo como esto lo cual uno lleva la cuenta de humanos otro la de mutantes y la otra es 
+el ratio de mutantes por persona
 
-```json
-{
-    "count_mutant_dna": 40,
-    "count_human_dna": 100,
-    "ratio": 0.4
-}
+```JSON
+"ratio": 0.0,
+"contador_mutante": 0,
+"contador_humano": 0
+```
+2. ### **_De manera manual, descargando archivos:_**
+
+Para ello, habra que descargarse las carpeta en formato .ZIP de este repositorio, luego habra que extraerla y 
+abrirla con InteligentIdea y configurar la base de Datos H2, ya que en render esta ya deployada en memoria mientras 
+que nosotros tenemos que acceder a ella (en caso de necesitarlo, aunque realmente con el metodo GET de POSTMAN ya 
+seria suficiente para ver los datos), mediante esta URL `jdbc:h2:mem:~/testdb;`
+
+Se ejecuta el proyecto dentro del InteligentIdea y de manera similar hay que cumplir todos los pasos mencionados 
+anteriormente en el POSTMAN solo que cambiando las direcciones por estas
+
+* GET: http://localhost:8080/stats
+* POST: http://localhost:8080/mutant
+
+Devolvera en cada caso el mismo resultado, todo depende de las cadenas a ingresar
+
+
+### EJEMPLOS DE CADENAS PARA TESTEAR
+```JSON
+"dna":[
+"ATGCGA",
+"CAGTGC",
+"TTATGT",
+"AGAAGG",
+"CCCCTA",
+"TCACTG"
+]
+```
+```JSON
+"dna": [
+"ATGCGA",
+"CAGTGC",
+"TTATGT",
+"AGAAGG",
+"CCCCTA",
+"TCACTA"
+]
 ```
 
-## Ejemplos de ADN
-
-Ejemplo de matriz **MUTANTE**:
-
-```json
-{
-    "dna": [
-      "ATGCGA",
-      "CAGTGC",
-      "TTATGT",
-      "AGAAAG",
-      "CCCCTA",
-      "TCACTG"
-    ]
-}
+```JSON
+"dna": [
+"ATGCGA",
+"CAGTGC",
+"TTATGT",
+"AGAAGG",
+"CCCTTA",
+"TCACTG"
+]
 ```
 
-Ejemplo de matriz **NO MUTANTE**:
-
-```json
-{
-    "dna": [
-      "ATGGTG",
-      "GTCTTA",
-      "AATTGG",
-      "ACTAGT",
-      "GGATTC", 
-      "AGGCAA"
-    ]
-}
-```

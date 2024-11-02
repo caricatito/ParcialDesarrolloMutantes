@@ -9,10 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StatsResponse {
-    @JsonProperty("count_mutant_dna")
+    @JsonProperty("contador_mutante")
     private long countMutantDna;
 
-    @JsonProperty("count_human_dna")
+    @JsonProperty("contador_humano")
     private long countHumanDna;
 
     private double ratio;
